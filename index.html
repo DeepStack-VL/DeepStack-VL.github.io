@@ -129,7 +129,8 @@
       <div class="container is-max-desktop">
         <div class="columns is-centered">
           <div class="column has-text-centered">
-            <h1 class="title is-1 publication-title"><i><b>DeepStack</b></i>
+            <h1 class="title is-1 publication-title"><img id="logo" width="5%" src="./figs/logo.png"> <i>DeepStack</i> :</h1>
+            <!-- <h1 class="title is-1 publication-title"><i><b>DeepStack</b></i> -->
               <span class="is-size-2"> <span class="is-size-1"></span></h1>
             <h3 class="title is-3 publication-title">Deeply Stacking Visual Tokens is Surprisingly Effective for LMMs</h3>
 
@@ -197,7 +198,7 @@
                   </a>
                 </span>
                 <span class="link-block">
-                  <a href="" target="_blank"
+                  <a href="https://github.com/MengLcool/DeepStack-VL" target="_blank"
                     class="external-link button is-normal is-rounded is-dark">
                     <span class="icon">
                       <i class="fab fa-github"></i>
@@ -218,9 +219,9 @@
                   <a href="" target="_blank"
                     class="external-link button is-normal is-rounded is-dark">
                     <span class="icon">
-                      <i class="fas fa-share-square"></i>
+                      🤗
                     </span>
-                    <span>Model</span>
+                  <span>Model (Coming soon)</span>
                   </a>
                 </span>
 
@@ -232,35 +233,123 @@
     </div>
   </section>
 
-  <section class="section"  style="background-color:#efeff081">
+  <section class="section">
     <div class="container is-max-desktop">
-      <!-- Abstract. -->
+        <!-- Abstract. -->
+        <div class="columns is-centered has-text-centered">
+        <div class="column is-four-fifths">
+            <h2 class="title is-3">Abstract</h2>
+            <div class="content has-text-justified">
+            <p>
+              Most large multimodal models (LMMs) are implemented by feeding visual tokens as a sequence into the first layer of a large language model (LLM). 
+              The resulting architecture is simple but significantly increases computation and memory costs, as it has to handle a large number of additional tokens in its input layer. 
+              This paper presents a new architecture <i>DeepStack</i> for LMMs. 
+              Considering N layers in the language and vision transformer of LMMs, we stack the visual tokens into N groups and feed each group to its aligned transformer layer <i>from bottom to top</i>. 
+              Surprisingly, this simple method greatly enhances the power of LMMs to model interactions among visual tokens across layers but with minimal additional cost. 
+              We apply <i>DeepStack</i> to both language and vision transformer in LMMs, and 
+              validate the effectiveness of <i>DeepStack</i> LMMs with extensive empirical results. 
+              Using the same context length, our DeepStack 7B and 13B parameters surpass their counterparts by <b>2.7</b> and <b>2.9</b> on average across <b>9</b> benchmarks, respectively. 
+              Using only one-fifth of the context length, DeepStack rivals closely to the counterparts that use the full context length. 
+              These gains are particularly pronounced on high-resolution tasks, <i>e.g.</i>, <b>4.2</b>, <b>11.0</b>, <b>4.0</b> improvements on TextVQA, DocVQA, and InfoVQA compared to LLaVA-1.5-7B, respectively.
+              We further apply <i>DeepStack</i> to vision transformer layers, which brings us a similar amount of improvements, <b>3.8</b> on average compared with LLaVA-1.5-7B.
+
+            </p>
+            </div>
+        </div>
+        </div>
+        <br>
+        <br>
+  
+  <!-- Paper Model. -->
+  <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">From Conventional Sqeuence to <i>DeepStack</i></h2>
+        <div class="content has-text-justified">
+          <p>
+
+          </p>
+          <img id="model" width="100%" src="./figs/deepstack_teaser.png">
+
+        </p><ul type="1">
+          <li><b>Conventional LMMs</b>. Stringing all visual tokens into a sequence for high- and low-resolution images.<span style="font-size: 95%;"> </span></li>
+          <li><b>DeepStack LMMs</b>. Stacking visual tokens into a grid and infuse them through transformer layers from bottom to top. <span style="font-size: 95%;"> </span></li> 
+          <li><b>Effectiveness of DeepStack</b>. Applying <i>DeepStack</i> to Vicuna-7B (DeepStack-L) and CLIP-ViT-L (DeepStack-V) significantly outperform sequence LMM under the same visual context length, and rival the one using a much longer context, over a wide range of benchmarks. <span style="font-size: 95%;"></span></li> 
+        </ul>  
+        </div>  
+        
+        <br><br>
+      </div>
+    </div>
+  
+ 
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Model Design</h2>
+        <div class="content has-text-justified">
+          <p>
+            The framework of DeepStack is quite simple: the main innovation lies in the <i>DeepStack</i> strategy that infuses visual tokens into different layers. 
+            Left: <i>DeepStack</i> for LLMs. Given an input image, we feed the tokens extracted from the low-resolution version to the input layer of LLM. 
+            Considering the 2D nature of images, we extra the neighbors from the high-resolution version and reorganize them into <i>DeepStack</i>, which are then fed to the consequent layers in LLMs. 
+            Right: <i>DeepStack</i> for ViTs. We apply similar sampling strategy but feed the visual tokens into the ViT layers of vision encoder.
+          </p>
+        </div>  
+        <img id="model" width="100%" src="./figs/deepstack_vl.png">
+           
+      </div>
+    </div>
+    <!-- <section class="section">
       <div class="columns is-centered has-text-centered">
         <div class="column is-six-fifths">
-          <h2 class="title is-3">Abstract</h2>
-          <div class="content has-text-justified">
-            <p>
-              
-           </p>
-  
+          <h2 class="title is-3">Benchmark Results</h2>
           </div>
         </div>
-      </div>
-        
-    </div>
-  </section>
+        <div class="columns is-centered has-text-centered">
+          <div id="main">
+            <img src="./figs/main_results.png" width="80%" alt="">
+            <br><br>
+          </div>
+    
+      </section></div>
+    </section> -->
+
+    <section class="section">
+      <!-- Results. -->
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-six-fifths">
+          <h2 class="title is-3">Examples</h2>
+          </div>
+        </div>
+        <div class="columns is-centered has-text-centered">
+          <div id="main">
+            <img src="./figs/visualization.png" width="80%" alt="">
+            <br><br>
+          </div>
+    
+      </section></div>
+    </section>
+
+
+    <section class="section" id="BibTeX">
+      <div class="container is-max-desktop content">
+        <h2 class="title">BibTeX</h2>
+        <pre><code>
+          
+        </code></pre>
+          </div>
+        </section>
+  
+      
 
 
 
-
-
+<!-- 
   <section class="section" id="BibTeX">
     <div class="container is-max-desktop content">
       <h2 class="title">BibTeX</h2>
       <pre><code>
   </code></pre>
     </div>
-  </section>
+  </section> -->
   
   <section class="section" id="Acknowledgement">
     <div class="container is-max-desktop content">
